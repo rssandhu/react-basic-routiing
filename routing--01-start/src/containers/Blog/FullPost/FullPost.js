@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import './FullPost.css';
+import { Redirect } from 'react-router-dom';
 
 class FullPost extends Component {
     state = {
-        loadedPost: null
+        loadedPost: null,
+        redirect : false 
     }
 
     componentDidMount () { 
@@ -23,11 +25,26 @@ class FullPost extends Component {
     deletePostHandler = () => {
         axios.delete('/posts/' + this.props.match.params.id)
             .then(response => {
-                console.log(response);
+                // console.log(response.status == 200 );
+                if(response.status === 200 )
+                {
+                    this.setState({ redirect: true });
+                    // <Redirect to = "http://localhost:3000/"  />
+
+                }else{
+                    console.log('Error , Unable to delete');
+                }
             });
     }
 
     render () {
+        if(this.state.redirect)
+        {
+                //redirecting after opreation
+
+            return <Redirect to = "/"  />
+        }
+        
         let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
         if ( this.props.id ) {
             post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
