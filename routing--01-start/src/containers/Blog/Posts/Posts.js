@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 import axios from '../../../axios';
 
 import Post from  '../../../components/Post/Post';
-
+// import { Link } from  'react-router-dom';
 import   './Posts.css';
 
 class Posts extends Component {
@@ -28,18 +28,24 @@ class Posts extends Component {
             });
     }
 
-    postSelectedHandler = (id) => {
-        this.setState({selectedPostId: id});
+    postSelectedHandler = (id) => {   //another ways of dynamic routing using history objects
+        //this.props.history.push({pathname : '/posts/'+id});  
+        this.props.history.push('/posts/'+id);
+
     }
     render (){
         let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
         if (!this.state.error) {
             posts = this.state.posts.map(post => {
-                return <Post 
-                    key={post.id} 
+                return (     // one way of making dynamic route another one is in postSelectedHandler
+                    //  <Link to={'/posts/'+post.id}  >
+                    <Post 
+                    key={post.id}
                     title={post.title} 
                     author={post.author}
-                    clicked={() => this.postSelectedHandler(post.id)} />;
+                    clicked={() => this.postSelectedHandler(post.id)} />
+                     //</Link>
+                )
             });
         }
         return(

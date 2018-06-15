@@ -10,7 +10,8 @@ import NewPost from '../Blog/NewPost/NewPost';
 import './Blog.css';
 import Posts from './Posts/Posts';
 
-import { Route , Link} from  'react-router-dom';
+import { Route , Link , Switch} from  'react-router-dom';
+import FullPost from '../Blog/FullPost/FullPost';
 
 class Blog extends Component {
 
@@ -19,7 +20,7 @@ class Blog extends Component {
 
         return (
             <div>
-                <header class="Blog">
+                <header className="Blog">
                     <nav>
                         <ul>
                             <li><Link to ="/">Home</Link></li>
@@ -30,8 +31,18 @@ class Blog extends Component {
                 {/* <Route path="/" exact  render={() => <Posts />} />
                 <Route path="/new-post" exact  render={() => <h1>NewPost</h1>} /> */}
 
-                <Route path="/" exact  component={Posts} />
+               <Switch>
+               <Route path="/" exact  component={Posts} />
                 <Route path="/new-post"   component={NewPost} />
+
+                {/* dynamic routing  */}
+                <Route path = "/posts/:id"  component = {FullPost} />
+
+               </Switch>
+
+                {/* search with route example */}
+                {/* <Link to="/my-path?start=5">Go to Start</Link> */}
+
 
                 {/* <Posts /> */}
                 {/* <section>
