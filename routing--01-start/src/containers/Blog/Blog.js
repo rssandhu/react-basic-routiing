@@ -10,10 +10,13 @@ import NewPost from '../Blog/NewPost/NewPost';
 import './Blog.css';
 import Posts from './Posts/Posts';
 
-import { Route , Link , Switch} from  'react-router-dom';
+import { Route , Link , Switch , Redirect} from  'react-router-dom';
 import FullPost from '../Blog/FullPost/FullPost';
 
 class Blog extends Component {
+    state = {
+        auth:false 
+    }
 
     render () {
        
@@ -32,8 +35,12 @@ class Blog extends Component {
                 <Route path="/new-post" exact  render={() => <h1>NewPost</h1>} /> */}
 
                <Switch>
-               <Route path="/" exact  component={Posts} />
-                <Route path="/new-post"   component={NewPost} />
+                <Route path="/" exact  component={Posts} /> 
+                {/* {this.state.auth ? */}
+                <Route path="/new-post" component={NewPost} />
+                {/* : */}
+                 {/* <Redirect to = "/"  /> */}
+                {/* } */}
 
                 {/* dynamic routing  */}
                 <Route path = "/posts/:id"  component = {FullPost} />
